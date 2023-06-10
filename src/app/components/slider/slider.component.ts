@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Movie } from '../../models/movie';
 
 @Component({
   selector: 'slider',
@@ -6,6 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./slider.component.scss']
 })
 export class SliderComponent {
-  @Input() items: any;
+  @Input() items: Movie[] = [];
 
 }
