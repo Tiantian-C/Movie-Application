@@ -16,5 +16,12 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class SliderComponent {
   @Input() items: Movie[] = [];
+  currenSlideIndex: number = 0;
+
+  ngOnInit(): void{
+    setInterval(() => {
+      this.currenSlideIndex = ++this.currenSlideIndex % this.items.length;
+    }, 5000)
+  }
 
 }
