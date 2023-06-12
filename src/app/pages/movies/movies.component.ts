@@ -11,7 +11,7 @@ export class MoviesComponent {
   movies: Movie[] = [];
   constructor(private movieService: MoviesService) {}
   ngOnInit(): void {
-    this.movieService.getMovies('popular', 20).subscribe((movies) => {
+    this.movieService.searchMovies(2).subscribe((movies) => {
       this.movies = movies;
     });
   }
