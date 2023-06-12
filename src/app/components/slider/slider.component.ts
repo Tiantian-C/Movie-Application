@@ -17,13 +17,17 @@ import { IMAGES_SIZES } from '../../constants/images-sizes';
 })
 export class SliderComponent {
   @Input() items: Movie[] = [];
+  @Input() isBanner: boolean = false;
   currenSlideIndex: number = 0;
   readonly imageSizes = IMAGES_SIZES;
 
   ngOnInit(): void{
-    setInterval(() => {
-      this.currenSlideIndex = ++this.currenSlideIndex % this.items.length;
-    }, 5000)
+    if (!this.isBanner) {
+      setInterval(() => {
+        this.currenSlideIndex = ++this.currenSlideIndex % this.items.length;
+      }, 5000);
+    }
+    
   }
 
 }

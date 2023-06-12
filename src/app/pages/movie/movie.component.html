@@ -1,1 +1,4 @@
-<pre>{{movie | json}}</pre>
+<!-- <pre>{{movie | json}}</pre> -->
+<ng-container *ngIf="movie">
+  <slider [items]="[movie]" [isBanner]="true"></slider>
+</ng-container>
