@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Movie } from 'src/app/models/movie';
+import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
   selector: 'app-movie',
@@ -7,12 +9,20 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./movie.component.scss'],
 })
 export class MovieComponent {
+
+  movie: Movie | null = null;
   //create a service
-  constructor(private route: ActivatedRoute) {}
-  //when I go to the movie page(movie component) I will call this,read id for url
+  constructor(private route: ActivatedRoute,private movieService:MoviesService) {}
+  //when I go to the movie page(movie component) I will call this,read id from url
   ngOnInit(): void {
     this.route.params.subscribe(({id}) => {
-      console.log(id);
+      this.getMovie(id);
     });
+  }
+
+  getMovie(id: string) {
+    this.movieService.getMovie(id).subscribe(movieData => {
+      this.movie = movieData;
+    })
   }
 }

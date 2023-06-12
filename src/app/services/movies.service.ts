@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MovieDto } from '../models/movie';
+import { Movie, MovieDto } from '../models/movie';
 import { of, switchMap } from 'rxjs';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { of, switchMap } from 'rxjs';
 export class MoviesService {
   baseUrl: string = 'https://api.themoviedb.org/3';
   apiKey: string = '22deddfff5f1176f137fa66272f529e8';
+
   constructor(private http: HttpClient) {}
 
   getMovies(type: string = 'upcoming', count: number = 12) {
@@ -19,6 +20,12 @@ export class MoviesService {
           return of(res.results.slice(0, count));
         })
       );
+  }
+
+  getMovie(id: string) {
+    return this.http.get<Movie>(
+      `${this.baseUrl}/movie/${id}?api_key=${this.apiKey}`
+    );
   }
 
   searchMovies(page:number) {
