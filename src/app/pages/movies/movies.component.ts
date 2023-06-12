@@ -11,8 +11,16 @@ export class MoviesComponent {
   movies: Movie[] = [];
   constructor(private movieService: MoviesService) {}
   ngOnInit(): void {
-    this.movieService.searchMovies(2).subscribe((movies) => {
-      this.movies = movies;
-    });
+    this.getPagedMovies(1);
+  }
+
+  getPagedMovies(page: number) {
+     this.movieService.searchMovies(page).subscribe((movies) => {
+       this.movies = movies;
+     });
+  }
+
+  paginate(event: any) {
+    this.getPagedMovies(event.page + 1);
   }
 }

@@ -6,7 +6,7 @@
   </div>
   <div>
     <p-paginator
-      [rows]="10" [totalRecords]="100" 
+      [rows]="20" [totalRecords]="10000" (onPageChange)="paginate($event)"
     ></p-paginator>
   </div>
 </div>
