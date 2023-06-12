@@ -15,14 +15,14 @@ export class HomeComponent {
   constructor(private moviesService: MoviesService) {}
 
   ngOnInit(): void {
-    this.moviesService.getMovies('popular').subscribe((response) => {
-      this.popularMovies = response.results;
+    this.moviesService.getMovies('popular').subscribe((movies) => {
+      this.popularMovies = movies;
     });
-    this.moviesService.getMovies('top_rated').subscribe((response) => {
-      this.topRatedMovies = response.results;
+    this.moviesService.getMovies('top_rated').subscribe((movies) => {
+      this.topRatedMovies = movies;
     });
-    this.moviesService.getMovies('upcoming').subscribe((response) => {
-      this.upcomingMovies = response.results;
+    this.moviesService.getMovies('upcoming').subscribe((movies) => {
+      this.upcomingMovies = movies;
     });
   }
 }
