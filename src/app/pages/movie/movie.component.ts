@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Movie, MovieImages, MovieVideo } from 'src/app/models/movie';
+import { Movie, MovieCredits, MovieImages, MovieVideo } from 'src/app/models/movie';
 import { MoviesService } from '../../services/movies.service';
 import { IMAGES_SIZES } from '../../constants/images-sizes';
 
@@ -14,6 +14,7 @@ export class MovieComponent {
   movieVideos: MovieVideo[] = [];
   imagesSizes = IMAGES_SIZES;
   movieImages: MovieImages | null = null;
+  movieCredits: MovieCredits | null = null;
   //create a service
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +26,7 @@ export class MovieComponent {
       this.getMovie(id);
       this.getMovieVideos(id);
       this.getMovieImages(id);
+      this.getMovieCredits(id);
     });
   }
 
@@ -35,13 +37,18 @@ export class MovieComponent {
   }
 
   getMovieVideos(id: string) {
-    this.movieService.getMovieVideos(id).subscribe(movieVideosData => {
+    this.movieService.getMovieVideos(id).subscribe((movieVideosData) => {
       this.movieVideos = movieVideosData;
-    })
+    });
   }
   getMovieImages(id: string) {
     this.movieService.getMovieImages(id).subscribe((movieImagesData) => {
       this.movieImages = movieImagesData;
-    })
+    });
+  }
+  getMovieCredits(id: string) {
+    this.movieService.getMovieCredits(id).subscribe((movieCreditsData) => {
+      this.movieCredits = movieCreditsData;
+    });
   }
 }
