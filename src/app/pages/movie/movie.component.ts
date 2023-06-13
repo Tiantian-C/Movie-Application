@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Movie, MovieCredits, MovieImages, MovieVideo } from 'src/app/models/movie';
 import { MoviesService } from '../../services/movies.service';
 import { IMAGES_SIZES } from '../../constants/images-sizes';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-movie',
   templateUrl: './movie.component.html',
   styleUrls: ['./movie.component.scss'],
 })
-export class MovieComponent {
+export class MovieComponent implements OnInit, OnDestroy{
   movie: Movie | null = null;
   movieVideos: MovieVideo[] = [];
   imagesSizes = IMAGES_SIZES;
@@ -22,12 +23,16 @@ export class MovieComponent {
   ) {}
   //when I go to the movie page(movie component) I will call this,read id from url
   ngOnInit(): void {
-    this.route.params.subscribe(({ id }) => {
+    this.route.params.pipe(first()).subscribe(({ id }) => {
       this.getMovie(id);
       this.getMovieVideos(id);
       this.getMovieImages(id);
       this.getMovieCredits(id);
     });
+  }
+
+  ngOnDestroy(): void {
+    console.log('component destroyed')
   }
 
   getMovie(id: string) {
