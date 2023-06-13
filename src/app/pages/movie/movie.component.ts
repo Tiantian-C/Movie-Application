@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Movie } from 'src/app/models/movie';
-import { MoviesService } from 'src/app/services/movies.service';
+import { MoviesService } from '../../services/movies.service';
+import { IMAGES_SIZES } from '../../constants/images-sizes';
 
 @Component({
   selector: 'app-movie',
@@ -9,20 +10,23 @@ import { MoviesService } from 'src/app/services/movies.service';
   styleUrls: ['./movie.component.scss'],
 })
 export class MovieComponent {
-
   movie: Movie | null = null;
+  imagesSizes = IMAGES_SIZES;
   //create a service
-  constructor(private route: ActivatedRoute,private movieService:MoviesService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private movieService: MoviesService
+  ) {}
   //when I go to the movie page(movie component) I will call this,read id from url
   ngOnInit(): void {
-    this.route.params.subscribe(({id}) => {
+    this.route.params.subscribe(({ id }) => {
       this.getMovie(id);
     });
   }
 
   getMovie(id: string) {
-    this.movieService.getMovie(id).subscribe(movieData => {
+    this.movieService.getMovie(id).subscribe((movieData) => {
       this.movie = movieData;
-    })
+    });
   }
 }
