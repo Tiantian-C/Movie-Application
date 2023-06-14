@@ -20,8 +20,6 @@ export class MoviesComponent {
   ) {}
 
   ngOnInit(): void {
-    this.searchValue = "Hello!";
-    console.log(this.searchValue);
     this.route.params.pipe(take(1)).subscribe(({ genreId }) => {
       if (genreId) {
         this.genreId = genreId;
@@ -32,8 +30,8 @@ export class MoviesComponent {
     });
   }
 
-  getPagedMovies(page: number) {
-    this.movieService.searchMovies(page).subscribe((movies) => {
+  getPagedMovies(page: number,searchKeyword?: string) {
+    this.movieService.searchMovies(page, searchKeyword).subscribe((movies) => {
       this.movies = movies;
     });
   }
@@ -49,11 +47,17 @@ export class MoviesComponent {
     if (this.genreId) {
       this.getMoviesByGenre(this.genreId, pageNumber);
     } else {
-      this.getPagedMovies(pageNumber);
+      if (this.searchValue) {
+        this.getPagedMovies(pageNumber, this.searchValue);
+      } else {
+        this.getPagedMovies(pageNumber);
+      }
     }
   }
 
   searchChanged() {
-    console.log(this.searchValue);
+    if (this.searchValue) {
+      this.getPagedMovies(1, this.searchValue);
+    }
   }
 }
